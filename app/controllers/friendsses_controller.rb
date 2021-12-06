@@ -1,5 +1,7 @@
 class FriendssesController < ApplicationController
   before_action :set_friendss, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :correct_user, only: [:edit, :update, :destroy]
 
   # GET /friendsses or /friendsses.json
   def index
@@ -12,7 +14,8 @@ class FriendssesController < ApplicationController
 
   # GET /friendsses/new
   def new
-    @friendss = Friendss.new
+    #@friendss = Friendss.new
+    @friendss = current_user.friendsses.build
   end
 
   # GET /friendsses/1/edit
@@ -21,8 +24,8 @@ class FriendssesController < ApplicationController
 
   # POST /friendsses or /friendsses.json
   def create
-    @friendss = Friendss.new(friendss_params)
-
+    #@friendss = Friendss.new(friendss_params)
+    @friendss = current_user.friendsses.build(friendss_params)
     respond_to do |format|
       if @friendss.save
         format.html { redirect_to @friendss, notice: "Friendss was successfully created." }
@@ -55,6 +58,11 @@ class FriendssesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def correct_user
+    @friendss = current_user.friendsses.find_by(id: params[:id])
+    redirect_to friendsses_path, notice: "xd not auth to edit" if @friendss.nil?
+  end 
 
   private
     # Use callbacks to share common setup or constraints between actions.
