@@ -1,31 +1,31 @@
 <p id="notice"><% notice %></p>
-
+<p><%= current_user.inspect%> </p>
 <table class="table table-hover table-striped table-bordered">
   <thead>
     <tr class="table-dark">
-      <th>First name</th>
-      <th>Last name</th>
+      <th>Name</th>
       <th>Email</th>
       <th>Phone</th>
       <th>Twitter</th>
-      <th>User ID <%= current_user.id%> </th>
+      <th>User ID </th>
       <th colspan="3"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @friendsses.each do |friendss| %>
-      <tr>
-        <td><%= friendss.first_name %></td>
-        <td><%= friendss.last_name %></td>
-        <td><%= friendss.email %></td>
-        <td><%= friendss.phone %></td>
-        <td><%= friendss.twitter %></td>
-        <td><%= friendss.user_id %></td>
-        <td><%= link_to 'Show', friendss, class:"btn btn-secondary btn-sm" %></td>
-        <td><%= link_to 'Edit', edit_friendss_path(friendss), class:"btn btn-secondary btn-sm" %></td>
-        <td><%= link_to 'Destroy', friendss, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger btn-sm" %></td>
-      </tr>
+      <% if friendss.user == current_user %>
+        <tr>
+          <td><%= friendss.first_name %> <%= friendss.last_name %></td>
+          <td><%= friendss.email %></td>
+          <td><%= friendss.phone %></td>
+          <td><%= friendss.twitter %></td>
+          <td><%= friendss.user_id %></td>
+          <td><%= link_to 'Show', friendss, class:"btn btn-secondary btn-sm" %></td>
+          <td><%= link_to 'Edit', edit_friendss_path(friendss), class:"btn btn-secondary btn-sm" %></td>
+          <td><%= link_to 'Destroy', friendss, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger btn-sm" %></td>
+        </tr>
+      <% end %> 
     <% end %>
   </tbody>
 </table>
