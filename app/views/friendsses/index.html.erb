@@ -1,4 +1,7 @@
 <p id="notice"><% notice %></p>
+
+<% if user_signed_in?%>
+
 <p><%= current_user.inspect%> </p>
 <table class="table table-hover table-striped table-bordered">
   <thead>
@@ -7,8 +10,6 @@
       <th>Email</th>
       <th>Phone</th>
       <th>Twitter</th>
-      <th>User ID </th>
-      <th colspan="3"></th>
     </tr>
   </thead>
 
@@ -16,14 +17,13 @@
     <% @friendsses.each do |friendss| %>
       <% if friendss.user == current_user %>
         <tr>
-          <td><%= friendss.first_name %> <%= friendss.last_name %></td>
+        
+          <td><%= link_to friendss.first_name + ' ' + friendss.last_name, friendss %> </td>
           <td><%= friendss.email %></td>
           <td><%= friendss.phone %></td>
           <td><%= friendss.twitter %></td>
-          <td><%= friendss.user_id %></td>
-          <td><%= link_to 'Show', friendss, class:"btn btn-secondary btn-sm" %></td>
-          <td><%= link_to 'Edit', edit_friendss_path(friendss), class:"btn btn-secondary btn-sm" %></td>
-          <td><%= link_to 'Destroy', friendss, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger btn-sm" %></td>
+          <% friendss.user_id %>
+          <% link_to 'Destroy', friendss, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger btn-sm" %>
         </tr>
       <% end %> 
     <% end %>
@@ -33,3 +33,9 @@
 <br>
 
 <%= link_to 'New Friend', new_friendss_path, class:"btn btn-primary" %>
+<% else %>
+
+<h1>Hello World</h1>
+<p>This is my first page</p>
+
+<% end %>

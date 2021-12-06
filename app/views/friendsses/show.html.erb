@@ -3,6 +3,7 @@
     <h2 class="card-title"><%= @friendss.first_name %> <%= @friendss.last_name %></h5>
     <p class="card-text"> <%= @friendss.email %> |  <%= @friendss.phone %> | <%= @friendss.twitter %></p>
     <%= link_to 'Edit', edit_friendss_path(@friendss), class:"btn btn-secondary" %>
+<%= link_to 'Destroy', @friendss, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger" %>
     <%= link_to 'Back', friendsses_path, class:"btn btn-secondary" %> 
   </div>
 </div>
